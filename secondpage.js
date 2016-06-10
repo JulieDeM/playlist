@@ -1,47 +1,71 @@
 var pageTwo = new XMLHttpRequest();
-var image1 = document.getElementById('imageSpot1');
-console.log(image1)
-var image2 = document.getElementById('imageSpot2');
-var image3 = document.getElementById('imageSpot3');
-var image4 = document.getElementById('imageSpot4');
-var image5 = document.getElementById('imageSpot5');
-var image6 = document.getElementById('imageSpot6');
-var divScroll = document.getElementById('scrollClass');
+
+var divScroll = document.getElementsByClassName('scrollClass')[0];
 var buttonsubmit = document.getElementById('buttonsubmi');
 var bin = document.getElementById('appDiv');
 var allImages = document.getElementsByClassName('albumImages');
 var newP = document.createElement('p');
 var clearTracks = document.getElementById('buttonclear');
-var submitBit = document.getElementById('buttonsubmit');
+var submitBtn = document.getElementById('buttonsubmit');
 
-window.onload = function(){
-  console.log("testtwo");
-  pageTwo.onreadystatechange = function(){
-    if(pageTwo.readyState === 4 && pageTwo.status < 400){
-        var jason = JSON.parse(pageTwo.responseText);
-        console.log("TESTONE");
-console.log("CAN I GET HERE");
-  for (var i = 0; i < allImages.length; i++) {
-      // allImages[i];
-      // console.log(allImages[i])
-      if(jason.results[i].cover_art === "21.jpg"){
-        image1.addEventListener('click', function(){
-          newP.innerHTML = "<img src='./images/" + jason.results[1].cover_art + "'/>";
-          newP.appendChild(bin)
-        })
-        }
-        console.log(jason.results[i].cover_art)
-      }
+pageTwo.onreadystatechange = function () {
+  if(pageTwo.readyState === 4 && pageTwo.status < 400){
+    var albums = JSON.parse(pageTwo.responseText).results;
+    for (var i = 0; i < albums.length; i++) {
+      var imgUrl = albums[i].cover_art;
+      var img = document.createElement('img');
+      img.src = 'images/' + imgUrl;
+      img.addEventListener('click', function () {
+        alert('hello')
+      })
+      divScroll.appendChild(img);
     }
+  }
 }
-}
 
-clearTracks.addEventListener('click', function(){
-  newP.innerHTML="";
-  bin.appendChild(newP)
-})
+  pageTwo.open('GET', 'https://lit-fortress-6467.herokuapp.com/object');
+  pageTwo.send();
 
 
+// make api call to get albums √
+// iterate over data and append images to DOM √
+//
+
+// window.onload = function (){
+//   console.log("testtwo");
+//   pageTwo.onreadystatechange = function(){
+//     console.log("hello there")
+//     if(pageTwo.readyState === 4 && pageTwo.status < 400){
+//       var jason = JSON.parse(pageTwo.responseText);
+//       console.log(jason);
+//       allImages.addEventListener('click', function(){
+//       for (var i = 0; i < allImages.length; i++) {
+//         if(jason.results[i].cover_art === "images/21.jpg"){
+//             newP.innerHTML = jason.results[i].cover_art;
+//             newP.appendChild(bin);
+//         console.log(jason.results[i].cover_art)
+//       }
+//     }
+//   })
+//     pageTwo.open('GET', 'https://lit-fortress-6467.herokuapp.com/object',true);
+//     pageTwo.send();
+//   }
+// }
+// }
+
+// clearTracks.addEventListener('click', function(){
+//   newP.innerHTML="";
+//   bin.appendChild(newP)
+//   pageTwo.preventDefault();
+// })
+
+
+// submitBtn.addEventListener('click', function(){
+//
+//
+//   pageTwo.open('POST', 'https://lit-fortress-6467.herokuapp.com/post');
+//   pageTwo.send();
+// })
 
 
 
