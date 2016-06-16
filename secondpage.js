@@ -17,6 +17,14 @@ pageTwo.onreadystatechange = function () {
       img.src = 'images/' + imgUrl;
       img.addEventListener('click', function () {
         alert('hello')
+        if(imgUrl === img.src){
+          newP.innerHTML = albums[i].title;
+          bin.appendChild(newP);
+          console.log(newP)
+        }
+        else{
+
+        }
       })
       divScroll.appendChild(img);
     }
